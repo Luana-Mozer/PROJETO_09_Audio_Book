@@ -1,5 +1,6 @@
 # 🎧 Audiobook Player: Dom Casmurro
-Um reprodutor de áudio web simples e elegante, construído com HTML, CSS e JavaScript puros, para escutar o clássico da literatura brasileira, Dom Casmurro, de Machado de Assis.
+Um reprodutor de áudio web simples e elegante, construído com HTML, CSS e JavaScript puros, para escutar o clássico da literatura brasileira, Dom Casmurro, de Machado de Assis.<br>
+# [Link Do Projeto](https://luana-mozer.github.io/PROJETO_09_Audio_Book)
 <img width="818" height="605" alt="Image" src="https://github.com/user-attachments/assets/8aec0745-aab9-4858-ac91-e1bc4710d012" />
 
 ## 🌟 Visão Geral do Projeto
