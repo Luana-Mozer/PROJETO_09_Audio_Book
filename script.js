@@ -9,7 +9,15 @@ let taTocando = false;
 let capitulo = 1;
 
 function tocarFaixa() {
-  audio.play();
+  // Melhora: Usa .play() e .catch() para evitar erros no console
+  // caso o navegador bloqueie a reprodução automática.
+  audio.play().catch(error => {
+    // Isso é esperado e ignorado se o usuário não interagiu,
+    // mas garante que a lógica do app não quebre.
+    console.error("Falha ao tentar reproduzir o áudio:", error);
+    taTocando = false;
+  });
+
   taTocando = true;
   botaoPlayPause.classList.add("tocando");
 }
@@ -28,8 +36,13 @@ function tocarOuPausarFaixa() {
   }
 }
 
+function trocarNomeCapitulo() {
+    nomeCapitulo.innerText = "Capítulo " + capitulo;
+}
+
 function capituloAnterior() {
-  pausarFaixa();
+  // Pausa a faixa antes de trocar para garantir a lógica
+  pausarFaixa(); 
 
   if (capitulo === 1) {
     capitulo = quantidadeCapitulos;
@@ -37,12 +50,17 @@ function capituloAnterior() {
     capitulo -= 1;
   }
 
-  audio.src = "audios" + capitulo + ".mp3";
-  nomeCapitulo.innerText = "Capítulo " + capitulo;
+  // Define o novo caminho do áudio e atualiza o nome
+  audio.src = "./audios/" + capitulo + ".mp3";
+  trocarNomeCapitulo();
+  
+  // Como o usuário clicou, podemos tentar tocar novamente
+  tocarFaixa(); 
 }
 
 function proximoCapitulo() {
-  pausarFaixa();
+  // Pausa a faixa antes de trocar para garantir a lógica
+  pausarFaixa(); 
 
   if (capitulo < quantidadeCapitulos) {
     capitulo += 1;
@@ -50,12 +68,20 @@ function proximoCapitulo() {
     capitulo = 1;
   }
 
-  audio.src = "/audios/" + capitulo + ".mp3";
-  nomeCapitulo.innerText = "Capítulo " + capitulo;
+  // Define o novo caminho do áudio e atualiza o nome
+  audio.src = "./audios/" + capitulo + ".mp3";
+  trocarNomeCapitulo();
+  
+  // Como o usuário clicou (no botão ou no evento 'ended'), podemos tentar tocar.
+  tocarFaixa(); 
 }
 
+// ----------------------------------------------------
+// Ouve o evento "click" para iniciar as ações do player
+// ----------------------------------------------------
 botaoPlayPause.addEventListener("click", tocarOuPausarFaixa);
 botaoCapituloAnterior.addEventListener("click", capituloAnterior);
 botaoProximoCapitulo.addEventListener("click", proximoCapitulo);
 
+// Ouve o evento "ended" (fim da música) para ir para o próximo capítulo
 audio.addEventListener("ended", proximoCapitulo);
