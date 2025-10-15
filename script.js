@@ -54,8 +54,6 @@ function capituloAnterior() {
   audio.src = "./audios/" + capitulo + ".mp3";
   trocarNomeCapitulo();
   
-  // Como o usuário clicou, podemos tentar tocar novamente
-  tocarFaixa(); 
 }
 
 function proximoCapitulo() {
