@@ -37,7 +37,7 @@ function capituloAnterior() {
     capitulo -= 1;
   }
 
-  audio.src = "/audios/" + capitulo + ".mp3";
+  audio.src = "audios" + capitulo + ".mp3";
   nomeCapitulo.innerText = "Capítulo " + capitulo;
 }
 
